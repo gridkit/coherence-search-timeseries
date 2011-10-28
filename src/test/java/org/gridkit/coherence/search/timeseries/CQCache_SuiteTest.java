@@ -15,41 +15,36 @@
  */
 package org.gridkit.coherence.search.timeseries;
 
-import junit.framework.Assert;
-
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.tangosol.net.CacheFactory;
 import com.tangosol.net.DefaultConfigurableCacheFactory;
-import com.tangosol.net.PartitionedService;
+import com.tangosol.net.NamedCache;
+import com.tangosol.net.cache.ContinuousQueryCache;
+import com.tangosol.net.cache.WrapperNamedCache;
+import com.tangosol.util.SafeHashMap;
+import com.tangosol.util.filter.AlwaysFilter;
 
 /**
  * @author Alexey Ragozin (alexey.ragozin@gmail.com)
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-	BasicFunctional_TestSet.class,
-	SimpleAggregation_TestSet.class,
-	RandomAggregation_TestSet.class,
+	BasicFunctional_TestSet.class
 })
-public class DistributedCache_SuiteTest {
+public class CQCache_SuiteTest {
 
 	static {
 		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
-	}	
+	}
 	
 	@BeforeClass
 	public static void init(){
-		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("distributed-cache");
-		AbstractTimeseriesFunctional_TestSet.useAffinity = true;
+		NamedCache cache = new WrapperNamedCache(new SafeHashMap(), "test-cache");
+		AbstractTimeseriesFunctional_TestSet.testCache = new ContinuousQueryCache(cache, AlwaysFilter.INSTANCE, true);		
 	}
-
-	@Test
-	public void cacheType() {
-		Assert.assertTrue(AbstractTimeseriesFunctional_TestSet.testCache.getCacheService() instanceof PartitionedService);
-	}	
+	
 }

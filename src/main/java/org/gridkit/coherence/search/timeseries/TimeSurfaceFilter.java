@@ -15,6 +15,8 @@
  */
 package org.gridkit.coherence.search.timeseries;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -22,6 +24,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.tangosol.io.pof.PofReader;
+import com.tangosol.io.pof.PofWriter;
+import com.tangosol.io.pof.PortableObject;
 import com.tangosol.util.Filter;
 import com.tangosol.util.ValueExtractor;
 import com.tangosol.util.filter.IndexAwareFilter;
@@ -29,8 +34,10 @@ import com.tangosol.util.filter.IndexAwareFilter;
 /**
  * @author Alexey Ragozin (alexey.ragozin@gmail.com)
  */
-public class TimeSurfaceFilter implements IndexAwareFilter {
+public class TimeSurfaceFilter implements IndexAwareFilter, Serializable, PortableObject {
 
+	private static final long serialVersionUID = 20111026L;
+	
 	private ValueExtractor seriesKeyExtractor;
 	private ValueExtractor timestampExtractor;
 	private Comparator<?> timestampComparator;
@@ -115,5 +122,30 @@ public class TimeSurfaceFilter implements IndexAwareFilter {
 			throw new IllegalArgumentException("TimeSeries index requeired, extractor spec " + e);
 		}
 		return ti;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public void readExternal(PofReader in) throws IOException {
+		int n = 1;
+		
+		this.seriesKeyExtractor = (ValueExtractor) in.readObject(n++);
+		this.timestampExtractor = (ValueExtractor) in.readObject(n++);
+		this.timestampComparator = (Comparator<?>) in.readObject(n++);
+		this.timestamp = in.readObject(n++);
+		this.above = in.readBoolean(n++);
+		this.seriesSet = in.readCollection(n++, null);
+	}
+
+	@Override
+	public void writeExternal(PofWriter out) throws IOException {
+		int n = 1;
+		
+		out.writeObject(n++, this.seriesKeyExtractor);
+		out.writeObject(n++, this.timestampExtractor);
+		out.writeObject(n++, this.timestampComparator);
+		out.writeObject(n++, this.timestamp);
+		out.writeBoolean(n++, this.above);
+		out.writeCollection(n++, this.seriesSet);
 	}
 }

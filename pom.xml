@@ -38,20 +38,46 @@
                 <enabled>true</enabled>
             </releases>
 		</repository>
+
+        <repository>
+            <id>gridkit-maven</id>
+            <url>https://subversion.assembla.com/svn/gridkit-maven/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>		
     </repositories>
 
     <dependencies>
 
-		<dependency>
+<!--
+ 		<dependency>
 			<groupId>com.oracle.coherence</groupId>
 			<artifactId>coherence</artifactId>
-			<version>3.7.0b23397</version>
+			<version>3.7.1.0b27797</version>
+		</dependency>
+ -->
+		<dependency>
+			<groupId>com.oracle.coherence</groupId>
+			<artifactId>generic</artifactId>
+			<version>3.7.1</version>		
+			<type>pom</type>
 		</dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8</version>
+            <scope>test</scope>
+        </dependency>
+		
+        <dependency>
+            <groupId>org.gridkit.coherence-tools</groupId>
+            <artifactId>test-utils</artifactId>
+            <version>0.1.1</version>
             <scope>test</scope>
         </dependency>
 		

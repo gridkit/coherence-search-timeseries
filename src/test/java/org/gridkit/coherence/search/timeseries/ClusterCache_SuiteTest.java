@@ -17,6 +17,9 @@ package org.gridkit.coherence.search.timeseries;
 
 import junit.framework.Assert;
 
+import org.gridkit.coherence.util.classloader.Isolate;
+import org.gridkit.coherence.util.classloader.NodeActions;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,14 +39,25 @@ import com.tangosol.net.PartitionedService;
 	SimpleAggregation_TestSet.class,
 	RandomAggregation_TestSet.class,
 })
-public class DistributedCache_SuiteTest {
+public class ClusterCache_SuiteTest {
 
 	static {
-		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
-	}	
+		System.setProperty("tangosol.coherence.cluster", "local-test");
+	}
+	
+	static Isolate node = new Isolate("Remote-1", "org.gridkit", "com.tangosol");
 	
 	@BeforeClass
 	public static void init(){
+		
+		CacheFactory.getCluster().shutdown();
+		
+		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
+		
+		node.start();
+		node.submit(NodeActions.Start.class, "test-cache-config.xml");
+		node.submit(NodeActions.GetCache.class, "distributed-cache");
+		
 		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("distributed-cache");
 		AbstractTimeseriesFunctional_TestSet.useAffinity = true;
 	}
@@ -52,4 +66,11 @@ public class DistributedCache_SuiteTest {
 	public void cacheType() {
 		Assert.assertTrue(AbstractTimeseriesFunctional_TestSet.testCache.getCacheService() instanceof PartitionedService);
 	}	
+	
+	@AfterClass
+	public static void shutdown() {
+		node.submit(NodeActions.Stop.class);
+		node.stop();
+		node = null;
+	}
 }

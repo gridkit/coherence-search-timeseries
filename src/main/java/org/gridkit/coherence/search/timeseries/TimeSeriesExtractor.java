@@ -141,14 +141,20 @@ public class TimeSeriesExtractor implements IndexAwareExtractor, PortableObject,
 	}
 
 	@Override
-	public void readExternal(PofReader paramPofReader) throws IOException {
-		// TODO Auto-generated method stub
+	public void readExternal(PofReader in) throws IOException {
+		int n = 1;
 		
+		this.seriesKeyExtractor = (ValueExtractor) in.readObject(n++);
+		this.timestampExtractor = (ValueExtractor) in.readObject(n++);
+		this.timestampComparator = (Comparator<?>) in.readObject(n++);
 	}
 
 	@Override
-	public void writeExternal(PofWriter paramPofWriter) throws IOException {
-		// TODO Auto-generated method stub
+	public void writeExternal(PofWriter out) throws IOException {
+		int n = 1;
 		
+		out.writeObject(n++, this.seriesKeyExtractor);
+		out.writeObject(n++, this.timestampExtractor);
+		out.writeObject(n++, this.timestampComparator);
 	}
 }

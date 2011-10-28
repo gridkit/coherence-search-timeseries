@@ -15,17 +15,13 @@
  */
 package org.gridkit.coherence.search.timeseries;
 
-import junit.framework.Assert;
-
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.tangosol.net.CacheFactory;
 import com.tangosol.net.DefaultConfigurableCacheFactory;
-import com.tangosol.net.PartitionedService;
 
 /**
  * @author Alexey Ragozin (alexey.ragozin@gmail.com)
@@ -34,22 +30,17 @@ import com.tangosol.net.PartitionedService;
 @SuiteClasses({
 	BasicFunctional_TestSet.class,
 	SimpleAggregation_TestSet.class,
-	RandomAggregation_TestSet.class,
+	RandomAggregation_TestSet.class,	
 })
-public class DistributedCache_SuiteTest {
+public class ReplicatedCache_SuiteTest {
 
 	static {
 		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
-	}	
+	}
 	
 	@BeforeClass
 	public static void init(){
-		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("distributed-cache");
-		AbstractTimeseriesFunctional_TestSet.useAffinity = true;
+		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("replicated-cache");
 	}
-
-	@Test
-	public void cacheType() {
-		Assert.assertTrue(AbstractTimeseriesFunctional_TestSet.testCache.getCacheService() instanceof PartitionedService);
-	}	
+	
 }

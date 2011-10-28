@@ -21,16 +21,23 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import com.tangosol.net.CacheFactory;
+import com.tangosol.net.DefaultConfigurableCacheFactory;
 
 /**
  * @author Alexey Ragozin (alexey.ragozin@gmail.com)
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-	BasicFunctional_TestSet.class
+	BasicFunctional_TestSet.class,
+	SimpleAggregation_TestSet.class,
+	RandomAggregation_TestSet.class,	
 })
 public class LocalCache_SuiteTest {
 
+	static {
+		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
+	}	
+	
 	@BeforeClass
 	public static void init(){
 		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("local-cache");
