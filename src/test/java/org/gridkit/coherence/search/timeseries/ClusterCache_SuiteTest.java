@@ -37,7 +37,7 @@ import com.tangosol.net.PartitionedService;
 @SuiteClasses({
 	BasicFunctional_TestSet.class,
 	SimpleAggregation_TestSet.class,
-	RandomAggregation_TestSet.class,
+	RandomAggregation_TestSet.class
 })
 public class ClusterCache_SuiteTest {
 

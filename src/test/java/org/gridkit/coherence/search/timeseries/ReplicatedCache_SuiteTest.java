@@ -30,7 +30,7 @@ import com.tangosol.net.DefaultConfigurableCacheFactory;
 @SuiteClasses({
 	BasicFunctional_TestSet.class,
 	SimpleAggregation_TestSet.class,
-	RandomAggregation_TestSet.class,	
+	RandomAggregation_TestSet.class	
 })
 public class ReplicatedCache_SuiteTest {
 
