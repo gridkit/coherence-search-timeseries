@@ -22,7 +22,7 @@
     <groupId>org.gridkit.search</groupId>
     <artifactId>coherence-search-timeseries</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.3-SNAPSHOT</version>
+    <version>0.9.1.1</version>
     <name>Coherence Time Series index</name>
 
     <parent>
@@ -51,7 +51,7 @@
         <connection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</connection>
         <developerConnection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</developerConnection>
         <url>http://todo</url>
-        <tag>HEAD</tag>
+        <tag>coherence-search-timeseries-0.9.1.1</tag>
     </scm>    
 
     <dependencies>
