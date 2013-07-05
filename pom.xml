@@ -48,11 +48,11 @@
     </developers>
 
     <scm>
-        <connection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</connection>
-        <developerConnection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</developerConnection>
+        <connection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</connection>
+        <developerConnection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</developerConnection>
         <url>http://todo</url>
-      <tag>HEAD</tag>
-  </scm>    
+        <tag>HEAD</tag>
+    </scm>    
 
     <dependencies>
 
