@@ -22,7 +22,7 @@
     <groupId>org.gridkit.search</groupId>
     <artifactId>coherence-search-timeseries</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.2-SNAPSHOT</version>
+    <version>0.9.2</version>
     <name>Coherence Time Series index</name>
 
     <parent>
@@ -51,7 +51,8 @@
         <connection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</connection>
         <developerConnection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</developerConnection>
         <url>http://todo</url>
-    </scm>    
+      <tag>coherence-search-timeseries-0.9.2</tag>
+  </scm>    
 
     <dependencies>
 
