@@ -16,8 +16,7 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.gridkit.search</groupId>
@@ -49,8 +48,8 @@
     </developers>
 
     <scm>
-        <connection>scm:git:file://./</connection>
-        <developerConnection>scm:git:file://./</developerConnection>
+        <connection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</connection>
+        <developerConnection>scm:git:file://C:/WarZone/spaces/grid-search/google-code-export/coherence-search-timeseries/coherence-search-timeseries.clone/</developerConnection>
         <url>http://todo</url>
     </scm>    
 
@@ -94,9 +93,7 @@
                 <version>2.4</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <remoteTagging>false</remoteTagging>
-                    <suppressCommitBeforeTag>true</suppressCommitBeforeTag>
-                    <!-- <pushChanges>true</pushChanges> -->
+                    <pushChanges>true</pushChanges>
                 </configuration>
             </plugin>
             <plugin>
