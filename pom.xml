@@ -29,7 +29,7 @@
     <groupId>org.gridkit.coherence-search</groupId>
     <artifactId>timeseries</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.3-SNAPSHOT</version>
+    <version>0.9.3</version>
     <name>Coherence Time Series index</name>
 
     <licenses>
@@ -52,7 +52,7 @@
         <connection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</connection>
         <developerConnection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</developerConnection>
         <url>https://github.com/aragozin/coherence-search-timeseries</url>
-        <tag>HEAD</tag>
+        <tag>timeseries-0.9.3</tag>
     </scm>    
 
     <dependencies>
