@@ -51,7 +51,7 @@
     <scm>
         <connection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</connection>
         <developerConnection>scm:git:https://github.com/aragozin/coherence-search-timeseries.git</developerConnection>
-        <url>http://todo</url>
+        <url>https://github.com/aragozin/coherence-search-timeseries</url>
         <tag>HEAD</tag>
     </scm>    
 
@@ -72,8 +72,8 @@
         
         <dependency>
             <groupId>org.gridkit.coherence-tools</groupId>
-            <artifactId>test-utils</artifactId>
-            <version>0.1.1</version>
+            <artifactId>chtest</artifactId>
+            <version>0.2.3</version>
             <scope>test</scope>
         </dependency>
         

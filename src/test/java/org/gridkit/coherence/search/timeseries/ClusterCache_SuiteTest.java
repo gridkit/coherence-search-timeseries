@@ -15,11 +15,9 @@
  */
 package org.gridkit.coherence.search.timeseries;
 
-import junit.framework.Assert;
-
-import org.gridkit.coherence.util.classloader.Isolate;
-import org.gridkit.coherence.util.classloader.NodeActions;
+import org.gridkit.vicluster.isolate.Isolate;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +42,8 @@ public class ClusterCache_SuiteTest {
 	static {
 		System.setProperty("tangosol.coherence.cluster", "local-test");
 	}
-	
+
+	// TODO - used ChTest API
 	static Isolate node = new Isolate("Remote-1", "org.gridkit", "com.tangosol");
 	
 	@BeforeClass
@@ -55,8 +54,28 @@ public class ClusterCache_SuiteTest {
 		CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory("test-cache-config.xml"));
 		
 		node.start();
-		node.submit(NodeActions.Start.class, "test-cache-config.xml");
-		node.submit(NodeActions.GetCache.class, "distributed-cache");
+		final String config = "test-cache-config.xml"; 
+		node.exec(new Runnable() {
+			@Override
+			public void run() {
+				System.setProperty("tangosol.coherence.member", Thread.currentThread().getName());
+				System.setProperty("tangosol.coherence.cluster", "local-test");
+				
+				System.out.println(Thread.currentThread().getName() + " starting Coherence node ...");
+				CacheFactory.setConfigurableCacheFactory(new DefaultConfigurableCacheFactory(config));
+				CacheFactory.ensureCluster();
+				System.out.println(Thread.currentThread().getName() + " Coherence node has started");
+			}
+		});
+		final String cacheName = "distributed-cache";
+		node.exec(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(Thread.currentThread().getName() + " initializing cache [" + cacheName + "] ...");
+				CacheFactory.getCache(cacheName);
+				System.out.println(Thread.currentThread().getName() + " cache [" + cacheName + "] initialized");
+			}
+		});
 		
 		AbstractTimeseriesFunctional_TestSet.testCache = CacheFactory.getCache("distributed-cache");
 		AbstractTimeseriesFunctional_TestSet.useAffinity = true;
@@ -69,7 +88,12 @@ public class ClusterCache_SuiteTest {
 	
 	@AfterClass
 	public static void shutdown() {
-		node.submit(NodeActions.Stop.class);
+		node.exec(new Runnable() {
+			@Override
+			public void run() {
+				CacheFactory.shutdown();
+			}
+		});
 		node.stop();
 		node = null;
 	}
